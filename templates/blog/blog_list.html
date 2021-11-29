@@ -1,0 +1,71 @@
+{% extends "layout/layout.html" %}
+
+{% block title %}
+Blog
+{% endblock title %}
+
+{% block content %}
+{% load humanize %}
+
+
+
+<!-- Blog start -->
+
+<section id="team" class="team section-bg">
+    <div class="container aos-init aos-animate" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Blog</h2>
+            <h3>Check our <span>Blogs</span></h3>
+            <p>This is a blog in which you can read the required books on fish farming through the blog feature in this application and the specialist will write this blog for the fish farmers.</p>
+        </div>
+
+
+        <div class="row">
+            {% for blog in blogs %}
+            <div class="col-lg-4 col-md-4 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up"
+                data-aos-delay="100">
+                <div class="member">
+                    <div class="member-img">
+                        <img src="{{ blog.image.url}}" class="img-fluid" alt="">
+                    </div>
+                    <div class="d-flex justify-content-between font-weight-light ps-3 pe-3 pt-3"
+                        style="color: #8a8a8a;">
+                        <div>
+                            Author: {{ blog.author }}
+                        </div>
+                        <div>
+
+                            Posted {{ blog.created_at|naturaltime }}
+                        </div>
+                    </div>
+                    <div class="member-info" style="padding-top: 10px;">
+                        <h4><a href="{% url 'blog-details' blog.id %}">{{blog.title}}</a></h4>
+                        <p>{{ blog.details|truncatechars:54 }}</p>
+
+                        <div class="like d-flex justify-content-between">
+                            <span class="badge badge-primary"><i class="bi bi-hand-thumbs-up-fill"></i>
+                                {{blog.like_count}}</span>
+                            <span class="badge badge-primary"><i class="bi bi-eye-fill"></i>
+                                {{blog.post_views}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+</section><!-- Blog  end-->
+
+
+
+
+
+
+
+
+{% endblock content %}

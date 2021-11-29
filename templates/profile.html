@@ -1,0 +1,154 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+
+<section class="text-gray-600 body-font">
+    <div class="container">
+
+        <div class="row">
+
+            {% with default_image=STATIC_URL|add:"media/250x250.png" %}
+            <div class="col-md-6" style="margin: 0 auto;">
+
+                <div class="card text-center p-4">
+
+
+                    <div class="profile">
+
+                        <img class="rounded-circle text-center mt-2" alt="hero" width="150"
+                            src="{{ request.user.profile.profile_pic.url|default:default_image }}">
+                        <div>
+
+                            <a href="profile-update" class="btn btn-primary mt-2"><i class="bi bi-pencil-square"></i>
+                                Edit
+                                Photo</a>
+                        </div>
+
+                        {% endwith %}
+                    </div>
+
+                    <div class="">
+
+
+
+                        <h1 class="">{{request.user.first_name}} {{request.user.last_name}}</h1>
+                    </div>
+
+
+                    <button onclick="click_show()" class="btn btn-primary mb-3">Edit
+                        name</button>
+
+
+                    <div id="form_show" class="">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {% for field in forms %}
+                            {{ field }}
+                            <br>
+                            {% if field.errors %}
+                            <div class="" role="alert">
+                                <span class="">{{ field.errors }}</span>
+                                <span class="">
+                                    <svg class="" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <title>Close</title>
+                                        <path
+                                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                                    </svg>
+                                </span>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+
+
+                            <button class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+
+                    <p class="mb-8 leading-relaxed" style="background: #166efd61;border-radius: 5px;padding: 5px;">
+                        {% if request.user.profile.about == "" %}
+                    <p style="">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni commodi tempore at
+                        deserunt
+                        perferendis
+                        delectus accusantium, exercitationem ea, velit voluptates natus, molestiae ut necessitatibus
+                        repellat
+                        maiores quibusdam. Ipsa, distinctio ex?</p>
+                    {% endif %}
+                    {{ request.user.profile.about }}
+
+                    </p>
+
+
+
+                </div>
+            </div>
+            {% if booking %}
+
+            <div class="col-md-12 mt-4">
+                {% if request.user.user_type != 'DOCTOR' %}
+
+
+                <div class="shadow p-5">
+                    <h2 class="text-center">MY Booking List</h2>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+                                <th scope="col">Name</th>
+                                <th scope="col">Question</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for bookers in booking %}
+                            <tr>
+                                <td> {{bookers.name}}</td>
+                                <td>{{bookers.problem|truncatechars:50 }}</td>
+                                <td>{{bookers.date}}</td>
+                                <td> {% if bookers.complete %}
+                                    <span class="text-success">
+                                        Complete
+                                    </span>
+                                    {% else %}
+                                    <span class="text-warning">
+                                        Waiting
+                                    </span>
+                                    {% endif %}
+                                </td>
+                                <td>Paid</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+
+
+    </div>
+</section>
+
+{% endblock content %}
+{% block script %}
+<script>
+
+    let show = document.getElementById('form_show')
+
+    show.style.display = 'none'
+    function click_show() {
+        if (show.style.display === 'none') {
+            show.style.display = 'block'
+        } else {
+            show.style.display = 'none'
+        }
+    }
+
+</script>
+{% endblock script %}

@@ -1,0 +1,110 @@
+{% extends "layout/layout.html" %}
+
+{% block title %}
+Cart
+{% endblock title %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="flex shadow ">
+        <div class="p-5 mt-5">
+            <div class="">
+                <h2 class="">Shopping Cart</h2>
+            </div>
+            <div style="display: grid;grid-template-columns: 20% 20% 20% 10% 20% 10%; font-weight: bold;     margin-top: 20px;
+                margin-bottom: 10px;
+                padding: 10px;
+                background: #166eea4a;
+                border-radius: 5px;">
+                <div class="">Image</div>
+                <div class="">Name</div>
+                <div class="">Quantity</div>
+                <div class="">Price</div>
+                <div class="">Total</div>
+                <div class="">Action</div>
+            </div>
+
+
+            {% for item in items %}
+            <div style="display: grid;grid-template-columns: 20% 20% 20% 10% 20% 10%;padding: 10px;">
+                <!-- product -->
+                <div class="">
+                    <img height="100px" src="{{ item.product.pic.url }}" alt="">
+                </div>
+                <div class="">
+                    <span class="">{{ item.product.name }}</span>
+
+                </div>
+
+                <div class="">
+                    <i data-product="{{item.product.id}}" data-action="remove" class="bi bi-dash-lg update-cart"></i>
+                    <input width="50" height="100" class="" style="width: 100px;" type="text" value="{{item.quantity}}">
+                    <i data-product="{{item.product.id}}" data-action="add" class="bi bi-plus-lg update-cart"></i>
+                </div>
+                <div class="">
+                    <span class="text-center w-1/5 font-semibold text-sm"> {{ item.product.price }}</span>
+                </div>
+                <div class="">
+                    <span class="text-center w-1/5 font-semibold text-sm"> {{item.get_total}}</span>
+                </div>
+                <div class="text-danger"><i data-action="remove_item" data-product="{{item.product.id}}"
+                        class="bi bi-x-circle-fill update-cart" style=""></i></div>
+            </div>
+
+            {% endfor %}
+
+
+            <h4 class="mt-5">
+
+                <a href="{% url 'product' %}" class="flex font-semibold text-indigo-600 text-sm mt-10">
+
+                    <i class="bi bi-arrow-left-circle-fill"></i>
+                    Continue Shopping
+                </a>
+            </h4>
+        </div>
+
+        <div id="summary" class="p-5">
+            <h2 class="font-semibold text-2xl border-b pb-8">Order Summary</h2>
+            <div class="flex justify-between mt-10 mb-5">
+                <span class="font-semibold text-sm uppercase">Total Qnt ({{order.get_cart_items}})</span>
+                <span class="font-semibold text-sm">{{order.get_cart_total}}</span>
+            </div>
+
+            <div class="border-t mt-8">
+                <div class="flex font-semibold justify-between py-6 text-sm uppercase">
+                    <span>Total cost</span>
+                    <span>{{order.get_cart_total}}</span>
+                </div>
+                <a href="{% url 'checkout' %}">
+                    <button class="btn btn-primary">Checkout</button></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
+{% block script %}
+
+{% endblock script %}

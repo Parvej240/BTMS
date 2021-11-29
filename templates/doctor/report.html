@@ -1,0 +1,59 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 shadow p-4 mt-5 mb-5" style="margin: 0 auto;">
+
+
+            {% if messages %}
+            <ul class="alert alert-primary">
+
+                {% for message in messages %}
+                <li{% if message.tags %} id="message-{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+
+            </ul>
+            {% endif %}
+
+            <form class="" method="POST" action="">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label class="" for="username">
+                        Name
+                    </label>
+                    <select name="username" class="form-control">
+                        <option value="">Select</option>
+                        {% for user in users %}
+
+                        <option value="{{user.id}}">{{user.username}}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+                <div class="mb-4">
+                    <label class="b" for="username">
+                        Question
+                    </label>
+                    <input class="form-control" name="question" type="text" required placeholder="Question">
+                </div>
+                <div class="mb-4">
+                    <label class="" for="username">
+                        Message
+                    </label>
+                    <textarea required class="form-control" name="message" id="" cols="30" rows="2"></textarea>
+
+                </div>
+
+                <div class="">
+                    <button class="btn btn-primary" type="submit">
+                        generate
+                    </button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

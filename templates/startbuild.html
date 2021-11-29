@@ -1,0 +1,109 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+<style>
+    button.imgae_edit.text-sm.bg-blue-400.p-2.py-1.text-white.rounded {
+        position: absolute;
+        top: 0;
+        margin-top: 26%;
+    }
+</style>
+<section class="text-gray-600 body-font">
+    <div class="container mx-auto flex flex-col px-5 py-24 justify-center items-center">
+
+
+        <div class="lg:w-3/6 md:w-2/3 flex flex-col mb-16 items-center text-center">
+
+
+
+            <h1 class="text-2xl mb-5">Start Build System</h1>
+
+            <div class="card col-md-5 col-sm-12 px-4 py-4 shadow mx-auto">
+
+                <div class="form-group mb-4">
+                    <span style="font-size: 20px;">Tank Type</span> <br>
+                    <div class="form-check form-check-inline">
+                        <input onclick="circular_tank()" class="form-check-input" required type="radio" name="tank_type"
+                            id="tank1" value="1">
+                        <label class="form-check-label" for="tank1">Cylinder Tank</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input onclick="rectangul_tank()" class="form-check-input" required type="radio"
+                            name="tank_type" id="tank2" value="2">
+                        <label class="form-check-label" for="tank2">Rectangle Tank</label>
+                    </div>
+                </div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="tank_type" value="1">
+                    <div class="form-group mb-4" id="circle_inputs">
+
+                        <img width="200" src="/media/cylinder.jpg" alt="">
+                        <div class="form-group">
+
+                            <label for="tanks">Tank Quantity?</label>
+                            <input id="tanks" required type="number" name="tanks" class="form-control mb-2">
+                        </div>
+                        <div class="form-group">
+
+                            <label for="diameter">Tank Diameter?(Feet)</label>
+                            <input id="diameter" required type="number" name="diameter" class="form-control mb-2">
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="height">Tank Height?(Feet)</label>
+                            <input id="height" required type="number" name="height" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Build</button>
+                    </div>
+                </form>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="tank_type" value="2">
+                    <div class="form-group mb-4 hide" id="recten_inputs">
+
+                        <img width="400" src="/media/rectengle.png" alt="">
+                        <div class="form-group">
+
+                            <label for="tanks">Tank Quantity?</label>
+                            <input id="tanks" required type="number" name="tanks" class="form-control mb-2">
+                        </div>
+                        <div class="form-group">
+
+                            <label for="length">Tank Length?(Feet)</label>
+                            <input id="length" required type="number" name="length" class="form-control mb-2">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="height">Tank Height?(Feet)</label>
+                            <input id="height" required type="number" name="height" class="form-control">
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="width">Tank Width?(Feet)</label>
+                            <input id="width" required type="number" name="width" class="form-control">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Build</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+{% block script %}
+<script>
+    document.getElementById('circle_inputs').style.display = 'none';
+    document.getElementById('recten_inputs').style.display = 'none';
+    function circular_tank() {
+        document.getElementById('circle_inputs').style.display = 'block';
+        document.getElementById('recten_inputs').style.display = 'none';
+    }
+    function rectangul_tank() {
+        document.getElementById('recten_inputs').style.display = 'block';
+        document.getElementById('circle_inputs').style.display = 'none';
+    }
+</script>
+{% endblock script %}

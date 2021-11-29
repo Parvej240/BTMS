@@ -1,0 +1,53 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+
+<!-- component -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-5 mt-5" style="margin: 0 auto;">
+
+
+            <h2 class="text-center">Login</h2>
+
+            {% if messages %}
+            <ul class="alert alert-primary">
+                {% for message in messages %}
+                <li{% if message.tags %} id="message-{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+            </ul>
+            {% endif %}
+
+            <div class="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
+                <div class="card shadow p-4">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <label class="">Username</label>
+                        <input name="username" type="text" class="form-control mb-3" />
+                        <label class="">Password</label>
+                        <input name="password" type="password" class="form-control" />
+                        <button type="submit" class="btn btn-primary mt-2 mb-3">Login</button>
+                    </form>
+                    <div class="d-flex justify-content-between">
+                        <a href="/registration" class="link">Registration </a>
+                        <a href="{% url 'reset_password' %}" class="link">Forget Password?</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+{% block script %}
+<script>
+    if (document.getElementById('message-info')) {
+
+        document.getElementById('message-info').classList.add('bg-red-100', 'border', 'mb-4', 'border-red-400', 'text-red-700', 'px-4', 'py-3', 'rounded', 'relative')
+    }
+    if (document.getElementById('message-success')) {
+        document.getElementById('message-success').classList.add('bg-green-100', 'border', 'mb-4', 'border-green-400', 'text-green-700', 'px-4', 'py-3', 'rounded', 'relative')
+    }
+</script>
+{% endblock script %}

@@ -1,0 +1,49 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+
+
+<section class="text-gray-600 body-font overflow-hidden">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>My Report</h2>
+                <div class="purchess_list shadow p-4">
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+                                <th scope="col">Tanks</th>
+                                <th scope="col">Water(L)</th>
+                                <th scope="col">Fish</th>
+                                <th scope="col">Feed(KG)</th>
+                                <th scope="col">Download</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for report in build %}
+                            <tr>
+                                <td> {{report.tanks}}</td>
+                                <td> {{report.water}}</td>
+                                <td> {{report.fish}}</td>
+                                <td> {{report.food}}</td>
+                                <td> <a class="link" href="{% url 'builder_download' report.id %}"
+                                        style="color:rgb(119, 212, 32)">Download</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}
+{% block script %}
+<script>
+
+</script>
+{% endblock script %}

@@ -1,0 +1,231 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+
+
+
+<section id="contact" class="contact">
+    <div class="container aos-init aos-animate" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Calculate</h2>
+            <h3><span>Calculate Now</span></h3>
+            <p>Calculate Now This option allows the user to calculate the water content of his bioflock and measure the weight of his fish.</p>
+
+        </div>
+
+        <div class="row aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-4  mb-3">
+                <div class="info-box shadow p-4">
+                    <div id="cn_result" class="shadow p-2 bg-info pt-3">
+                        <h5 class="total rounded">
+                            C/N Ratio: <span class="text-blue-500" id="cn_ratio"></span>
+                        </h5>
+
+                    </div>
+                    <div class="">
+
+
+                        <h3 class="">C/N Ratio Calculation</h3>
+                        <div class="mb-2">
+                            <label for="tfish" class="">Total Fish(KG)</label><br>
+                            <input required class="form-control" id="tfish" type="number" autofocus>
+                        </div>
+                        <div class="mb-4 relative">
+                            <label for="p_percent" class="">Percentage(%) of Food Protine</label> <br>
+                            <input required class="form-control" id="p_percent" type="number" autofocus>
+
+                        </div>
+                        <button onclick="cn_calculation()" class="btn btn-primary">Submit</button>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4  mb-3">
+                <div class="info-box shadow p-4">
+                    <div id="amonia_results" class="shadow p-2">
+                        <h5 class="total rounded">
+                            Total Amonia: <span class="text-blue-500" id="total_amonia"></span> Gram
+                        </h5>
+                        <p>Remove Amonia: use <span class="text-blue-500" id="molasys"></span> Gram <span
+                                class="text-blue-600">Molasses</span> </p>
+                    </div>
+                    <div class="">
+
+                        <form action="">
+                            <h3 class="">Total Amonia</h3>
+                            <div class="mb-2">
+                                <label for="ppm" class="">PPM</label><br>
+                                <input required class="form-control" id="ppm" type="number" autofocus>
+                            </div>
+                            <div class="mb-4 relative">
+                                <label for="total_water" class="">Total
+                                    Water</label> <br>
+                                <input required class="form-control" id="total_water" type="number" autofocus>
+
+                            </div>
+                            <button onclick="totalAmonia()" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="col-lg-4 col-md-4  mb-3">
+                <div class="info-box p-4 shadow">
+
+                    <div class="">
+                        <div id="biomass_results" class="">
+                            <h3 class="total rounded">
+                                Total Biomass: <span class="" id="total_biomass"></span> KG
+                            </h3>
+
+                        </div>
+                        <div class="">
+                            <h5 class="">Biomass</h5>
+                            <div class="mb-4 relative">
+                                <label for="fish" class="label text-lg ">Total weight of 10 fish</label><br>
+                                <input required class="form-control" id="fish" type="number" autofocus>
+                            </div>
+                            <div class="mb-4 relative">
+                                <label for="total_fish" class="label text-lg">Total
+                                    Fish</label> <br>
+                                <input required class="form-control" id="total_fish" type="number" autofocus>
+
+                            </div>
+                            <button onclick="totalFish()" class="btn btn-primary">Submit</button>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-4  mb-3">
+                <div class="info-box p-4 shadow">
+
+                    <div class="">
+                        <div id="pona_results" class="">
+                            <h3 class="total rounded">
+                                Pona Weight: <span class="text-blue-500" id="total_pona"></span> Gram
+                            </h3>
+
+                        </div>
+                        <div class="">
+                            <h5 class="">Pona Weight</h5>
+                            <div class="mb-4 relative">
+                                <label for="fish" class="label text-lg ">How many pona in KG</label><br>
+                                <input required class="form-control" id="pona" type="number" autofocus>
+                            </div>
+
+                            <button onclick="ponaWehght()" class="btn btn-primary">Submit</button>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-3 mb-3">
+                <div class="info-box p-4 shadow">
+
+                    <div class="">
+                        <div id="water_results" class="">
+                            <h3 class="total rounded">
+                                Total Water: <span class="text-blue-500" id="water_l"></span> Liter
+                            </h3>
+
+                        </div>
+                        <div class="shadow-xl p-10 bg-white max-w-xl rounded">
+                            <h5>Total Water</h5>
+                            <div class="mb-4 relative">
+                                <label for="length" class="label text-lg ">Length(Feet)</label><br>
+                                <input required class="form-control" id="length" type="number" autofocus>
+                            </div>
+
+                            <div class="mb-4 relative">
+                                <label for="width" class="label text-lg ">Width(Feet)</label><br>
+                                <input required class="form-control" id="width" type="number" autofocus>
+                            </div>
+                            <div class="mb-4 relative">
+                                <label for="depth" class="label text-lg ">Depth of water(Feet)</label><br>
+                                <input required class="form-control" id="depth" type="number" autofocus>
+                            </div>
+
+                            <button onclick="waterCalculate()" class="btn btn-primary">Submit</button>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+</section>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+    document.getElementById('amonia_results').style.display = 'none';
+    function totalAmonia() {
+        var x = document.getElementById('ppm').value;
+        var y = document.getElementById('total_water').value;
+        var mol = document.getElementById('total_amonia').innerHTML = x * y / 1000
+        document.getElementById('molasys').innerHTML = mol * 20
+        document.getElementById('amonia_results').style.display = 'block';
+    }
+    document.getElementById('biomass_results').style.display = 'none';
+    function totalFish() {
+        var x = document.getElementById('fish').value;
+        var y = document.getElementById('total_fish').value;
+        document.getElementById('total_biomass').innerHTML = ((x / 10) * y) / 1000;
+        document.getElementById('biomass_results').style.display = 'block';
+    }
+    document.getElementById('pona_results').style.display = 'none';
+    function ponaWehght() {
+        var x = document.getElementById('pona').value;
+        document.getElementById('total_pona').innerHTML = 1000 / x
+        document.getElementById('pona_results').style.display = 'block';
+    }
+    document.getElementById('water_results').style.display = 'none';
+    function waterCalculate() {
+        var x = document.getElementById('length').value;
+        var y = document.getElementById('width').value;
+        var z = document.getElementById('depth').value;
+        document.getElementById('water_l').innerHTML = x * y * z * 28.32
+        document.getElementById('water_results').style.display = 'block';
+    }
+    document.getElementById('cn_result').style.display = 'none';
+    function cn_calculation() {
+        var f = document.getElementById('tfish').value;
+        f = f * 1000
+        var p = document.getElementById('p_percent').value;
+        var pg = (f / 100) * 3
+        var ptr = (pg / 100) * p
+        var ntg = (ptr / 100) * 16
+        var n = (ntg / 100) * 75
+        var c = n * 10
+        document.getElementById('cn_ratio').innerHTML = c + ':' + n
+        document.getElementById('cn_result').style.display = 'block';
+
+    }
+</script>
+{% endblock script %}

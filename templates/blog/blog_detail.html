@@ -1,0 +1,85 @@
+{% extends "layout/layout.html" %}
+
+{% block title %}
+Blog
+{% endblock title %}
+
+{% block content %}
+
+{% load humanize %}
+<section id="team" class="team section-bg">
+    <div class="container aos-init aos-animate" data-aos="fade-up">
+
+        <div class="blog details">
+            <img class="img-fluid" src="{{ blog.image.url }}" alt="blog">
+            <div class="pt-5">
+                <p class="d-flex justify-content-between">{{blog.author}}
+                    <span class="float-right text-gray-700 font-light">Posted: {{ blog.created_at|naturaltime }}</span>
+                </p>
+                <h2>{{blog.title}}</h2>
+                <p class="leading-relaxed mb-3">{{blog.details}}</p>
+                <hr>
+
+                <div class="d-flex justify-content-between">
+                    <!-- {{request.user.id}} -->
+
+                    <div class="">
+                        {% if request.user.is_authenticated %}
+
+                        <button value="{{blog.id}}" id="like_button" type="button" class="btn btn-primary">
+                            <i class="bi bi-hand-thumbs-up-fill"></i>
+
+                            <span class="ml-2" id="like_count">
+
+                                {{blog.like_count}}
+                            </span></button>
+
+
+
+                        {% else %}
+                        <a href="{%  url 'login' %}" class="btn btn-primary">
+                            <i class="bi bi-hand-thumbs-up-fill"></i>
+
+                        </a>
+                        {% endif %}
+
+
+                    </div>
+
+                    <div class="">
+                        <button class="btn btn-primary">
+                            <i class="bi bi-eye-fill"></i>
+                            {{blog.post_views}}
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock content %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).on('click', '#like_button', function (e) {
+        var token = '{{csrf_token}}'
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "like" %}',
+            data: {
+                postid: $('#like_button').val(),
+                csrfmiddlewaretoken: token,
+                action: 'post'
+            },
+            success: function (json) {
+                document.getElementById('like_count').innerHTML = json['result']
+                console.log(json)
+            }, error: function (xhr, errmsg, err) { }
+        })
+    })
+</script>
+{% endblock script %}

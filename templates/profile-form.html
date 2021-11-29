@@ -1,0 +1,64 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+<style>
+    button.imgae_edit.text-sm.bg-blue-400.p-2.py-1.text-white.rounded {
+        position: absolute;
+        top: 0;
+        margin-top: 26%;
+    }
+</style>
+<section class="text-gray-600 body-font">
+    <div class="container mx-auto flex flex-col px-5 py-24 justify-center items-center">
+
+
+        <div class="lg:w-3/6 md:w-2/3 flex flex-col mb-16 items-center text-center">
+
+
+
+            <h1 class="text-2xl mb-5">Update Profile</h1>
+
+            <div id="profile_form" class="flex w-full justify-center items-end">
+                <form action="profile-update" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for profile in profiles %}
+                        <label class="font-semibold text-sm text-gray-600 pb-1 block">{{ profile.label_tag }}</label>
+                    {{ profile }}
+                    <br>
+                    {% if profile.errors %}
+                    <div class="bg-red-100 border mb-4 border-red-400 text-red-700 px-4 py-3 rounded relative"
+                        role="alert">
+                        <span class="block sm:inline">{{ profile.errors }}</span>
+                        <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                            <svg class="fill-current h-6 w-6 text-red-500" role="button"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <title>Close</title>
+                                <path
+                                    d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                            </svg>
+                        </span>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <!-- <input type="text" id="first_name" name="first_name" placeholder="First Name"
+                        class="bg-gray-100 bg-opacity-50 rounded focus:ring-2 focus:ring-indigo-200 focus:bg-transparent border border-gray-300 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+
+                    <input type="text" id="last_name" name="last_name" placeholder="Last Name"
+                        class="bg-gray-100 bg-opacity-50 rounded focus:ring-2 focus:ring-indigo-200 focus:bg-transparent border border-gray-300 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> -->
+                    <br>
+                    <button name="profile_update"
+                        class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Save</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+{% block script %}
+<script>
+    document.getElementById('id_profile_pic').classList.add('bg-gray-100', 'bg-opacity-50', 'rounded', 'focus:ring-2', 'focus:ring-indigo-200', 'focus:bg-transparent', 'border', 'border-gray-300', 'focus:border-indigo-500', 'text-base', 'outline-none', 'text-gray-700', 'py-1', 'px-3', 'leading-8', 'transition-colors', 'duration-200')
+
+</script>
+{% endblock script %}

@@ -1,0 +1,168 @@
+{% extends "layout/layout.html" %}
+{% load static %}
+
+{% block slider_script %}
+
+{% endblock slider_script %}
+{% block content %}
+
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up"
+        data-aos-delay="200">
+        <h1>Better Solutions For Biofloc</h1>
+        <h2>We Provide better service all over Bangladesh</h2>
+        <div class="d-flex justify-content-center justify-content-lg-start">
+          <a href="{% url 'product' %}" class="btn-get-started scrollto">Buy Product</a>
+          <a href="https://youtu.be/g4AYil5--70" class="glightbox btn-watch-video"><i
+              class="bi bi-play-circle"></i><span>Watch Video</span></a>
+        </div>
+      </div>
+      <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+        <img src="assets/img/hero-img.png" class="img-fluid animated" alt="">
+      </div>
+    </div>
+  </div>
+
+</section><!-- End Hero -->
+
+
+
+
+<section id="featured-services" class="featured-services">
+  <div class="container aos-init aos-animate" data-aos="fade-up">
+
+    <div class="row">
+      <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+        <div class="icon-box aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+          <div class="icon"><i class="bx bxl-dribbble"></i></div>
+          <h4 class="title"><a href="">Catfish (farm-raised)</a></h4>
+          <p class="description">Farm-Raised Catfish is raised in environmentally controlled, clay-based ponds, filled
+            with fresh water pumped from underground</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+        <div class="icon-box aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+          <div class="icon"><i class="bx bx-file"></i></div>
+          <h4 class="title"><a href="">AQUARIUM FISH</a></h4>
+          <p class="description">Unfortunately some fish species exist only in aquariums because their natural habitats
+            have been destroyed.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+        <div class="icon-box aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+          <div class="icon"><i class="bx bx-tachometer"></i></div>
+          <h4 class="title"><a href="">Fish Farm Equipment</a></h4>
+          <p class="description"> The. fish farming equipment come in amazing varieties that promote higher efficiency
+            through saving time.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+        <div class="icon-box aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+          <div class="icon"><i class="bx bx-world"></i></div>
+          <h4 class="title"><a href="">Best Sercive for Biofloc</a></h4>
+          <p class="description">Best of all, implementing biofloc principles requires little investment also provide
+            aquaculture consultancy services</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section id="about" class="about section-bg">
+  <div class="container aos-init aos-animate" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>About</h2>
+      <h3>Find Out More <span>About Us</span></h3>
+      <p>We partner with Nature to solve everyday problems</p>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 aos-init aos-animate" data-aos="fade-right" data-aos-delay="100">
+        <img src="{% static 'img/2.jpg' %}" class="img-fluid" alt="">
+      </div>
+      <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center aos-init aos-animate"
+        data-aos="fade-up" data-aos-delay="100">
+        <h3>Biofloc Fish Farming - Biofloc Technology Microbial Formulation</h3>
+        <p class="fst-italic">
+          Biofloc technology is a technology that removes waste created by aquatic animals and provides nutrition to aquatic animals
+        </p>
+        <ul>
+          <li>
+            <i class="bx bx-images"></i>
+            <div>
+              <h5>Which species are best for Biofloc fish farming?</h5>
+              <p>Two main factors to consider before selecting species for Biofloc are:
+Species that are able to consume floc directly and gain nutrition.
+Species that can tolerate high solids concentration in water.</p>
+            </div>
+          </li>
+        </ul>
+        <p>
+          Biofloc technology is a system to convert waste and toxic materials (like Ammonia, Nitrate, Nitrite) to useful matters which can also be used as feed for fish. By recycling proteins, Biofloc system helps to enrich water quality and reduce the risk of disease outbreaks. Probiotics used in Biofloc Technology play a significant role by destroying harmful bacteria in water. An important advantage of Biofloc system is that it requires zero or limited water exchange under high stocking density.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- Blog start -->
+
+<section id="team" class="team section-bg">
+  <div class="container aos-init aos-animate" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Blog</h2>
+      <h3>Check our <span>Blogs</span></h3>
+      <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae
+        autem.</p>
+    </div>
+
+
+    <div class="row">
+      {% for blog in blogs %}
+      <div class="col-lg-4 col-md-4 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up"
+        data-aos-delay="100">
+        <div class="member">
+          <div class="member-img">
+            <img src="{{ blog.image.url}}" class="img-fluid" alt="">
+          </div>
+          <div class="member-info">
+            <h4><a href="{% url 'blog-details' blog.id %}">{{blog.title}}</a></h4>
+            <p>{{blog.details|truncatechars:54}}</p>
+            <div class="d-flex justify-content-between" style="font-size: 15px;">
+              <span class="badge badge-pill badge-primary"><i class="bi bi-hand-thumbs-up-fill"></i>
+                {{blog.like_count}}</span>
+              <span class="badge badge-pill badge-primary"><i class="bi bi-eye-fill"></i>
+                {{blog.post_views}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+
+
+    </div>
+
+  </div>
+</section><!-- Blog  end-->
+
+
+
+
+
+{% endblock content %}

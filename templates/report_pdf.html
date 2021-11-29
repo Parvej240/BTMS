@@ -1,0 +1,84 @@
+<head>
+    <title>Report for {{username}}</title>
+    <style>
+        p {
+            font-size: 12px;
+        }
+
+        td {
+            font-size: 12px;
+        }
+
+        h3 {
+            font-size: 18px;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+        }
+
+        @page {
+            size: a4 portrait;
+
+            @frame header_frame {
+                /* Static Frame */
+                -pdf-frame-content: header_content;
+                left: 50pt;
+                width: 512pt;
+                top: 50pt;
+                height: 40pt;
+            }
+
+            @frame content_frame {
+                /* Content Frame */
+                left: 50pt;
+                width: 512pt;
+                top: 90pt;
+                height: 632pt;
+            }
+
+            @frame footer_frame {
+                /* Another static Frame */
+                -pdf-frame-content: footer_content;
+                left: 50pt;
+                width: 512pt;
+                top: 772pt;
+                height: 20pt;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content">
+        <h3>Biofloc Report For: <span style="text-transform:uppercase;">{{username}}</span></h3>
+        <hr>
+    </div>
+
+    <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">(c) - page <pdf:pagenumber>
+            of <pdf:pagecount>
+    </div>
+
+    <!-- HTML Content -->
+    <table>
+        <tr>
+            <td style="font-weight: bold;">Question: {{question}}</td>
+        </tr>
+        <tr>
+            <td>Solution: {{answer}}</td>
+        </tr>
+
+
+
+    </table>
+
+    <p style="font-weight: bold;">
+        Appointed Doctor: {{doctor}}
+    </p>
+
+
+
+
+</body>
+
+</html>

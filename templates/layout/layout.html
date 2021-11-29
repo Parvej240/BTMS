@@ -1,0 +1,383 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Biofloc -
+    {% block title %}
+    Service for You
+    {% endblock title %}
+  </title>
+
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link rel="icon" href="{% static 'favicon.ico' %}" sizes="16x16" type="image/ico">
+  <link rel="icon" href="{% static 'favicon.ico' %}" sizes="16x16 32x32" type="image/ico">
+
+  <!-- Google Fonts -->
+
+
+  {% block slider_script %}
+
+  {% endblock slider_script %}
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <!-- <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet"> -->
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+  <script>
+    var user = '{{request.user}}'
+    var user = '{{request.user}}'
+    function getTokn(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getTokn('csrftoken');
+  </script>
+
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope d-flex align-items-center"><a
+            href="mailto:contact@example.com">contact@example.com</a></i>
+        <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
+      </div>
+      <div class="social-links d-none d-md-flex align-items-center">
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <h1 class="logo me-auto"><a href="{% url 'home' %}">Biofloc</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          {% url 'sb' as url %}
+          <li><a class="nav-link {% if request.path == url %} active {% endif %}" href="{% url 'sb' %}">Start Build</a>
+          </li>
+          {% url 'home' as url %}
+          <li><a class="nav-link {% if request.path == url %} active {% endif %}" href="{% url 'home' %}">Home</a></li>
+          {% url 'viewBlog' as url %}
+          <li><a class="nav-link {% if request.path == url %} active {% endif %}" href="{% url 'viewBlog' %}">Blog</a>
+          </li>
+
+          {% if request.user.user_type == 'USER' %}
+
+          {% url 'calculate' as url %}
+          <li><a class="nav-link {% if request.path == url %} active {% endif %}"
+              href="{% url 'calculate' %}">Calculate</a></li>
+
+          {% url 'product' as url %}
+
+          <li><a class="nav-link {% if request.path == url %} active {% endif %}" href="{% url 'product' %}">Product</a>
+          </li>
+
+          {% url 'doctor' as url %}
+          <li><a class="nav-link {% if request.path == url %} active {% endif %}" href="{% url 'doctor' %}">Exparts</a>
+          </li>
+
+          {% endif %}
+
+          {% url 'contact' as url %}
+          <li><a class="nav-link {% if request.path == url %} active {% endif %}" href="{% url 'contact' %}">Contact</a>
+          </li>
+
+          {% url 'cart' as cart %}
+          {% url 'checkout' as checkout %}
+          {% url 'product' as pro %}
+
+          {% if request.path == cart or request.path == pro or request.path == checkout %}
+
+          <li><a class="nav-link" href="{% url 'cart' %}">
+              <button type="button" class="btn btn-primary position-relative">
+                <i class="bi bi-bag-check-fill"></i>
+                <span>
+                  {{order.get_cart_items}}
+                </span>
+              </button>
+
+            </a></li>
+
+
+
+
+          {% endif %}
+
+        </ul>
+
+
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+      <!-- Example single danger button -->
+      {% if request.user.is_authenticated %}
+
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle ms-3" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          {{request.user|upper}}
+        </button>
+        <ul class="dropdown-menu">
+          {% if request.user.user_type == 'DOCTOR' %}
+          <li><a class="dropdown-item" href="{% url 'report' %}">Create Report</a></li>
+          <li><a class="dropdown-item" href="{% url 'addBlog' %}">Post On Blog</a></li>
+          <li><a class="dropdown-item" href="{% url 'ownBlog' %}">My Posts</a></li>
+          {% endif %}
+
+
+          {% if request.user.user_type == 'USER' %}
+          <li><a class="dropdown-item" href="{% url 'report-user' %}">My Report</a></li>
+          <li><a class="dropdown-item" href="{% url 'purchase_history' %}">Purchase History</a></li>
+          {% endif %}
+
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+          <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+
+        </ul>
+      </div>
+
+      {% else %}
+      {% url 'product' as url %}
+
+      <a class="btn btn-primary {% if request.path == url %} active {% endif %} ms-2" href="{% url 'login' %}">Login
+      </a>
+
+
+
+      {% endif %}
+    </div>
+  </header><!-- End Header -->
+
+
+
+
+
+
+
+
+  <!-- 
+
+  <nav :class="{'flex': open, 'hidden': !open}"
+    class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-left md:flex-row">
+
+
+  </nav>
+
+  {% if request.user.is_authenticated %}
+  <div @click.away="open = false" class="relative" x-data="{ open: false }">
+    <button @click="open = !open"
+      class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+      <span>{{request.user|upper}}</span>
+      <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}"
+        class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
+        <path fill-rule="evenodd"
+          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+          clip-rule="evenodd"></path>
+      </svg>
+    </button>
+    <div style="z-index: 2;" x-show="open" x-transition:enter="transition ease-out duration-100"
+      x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100"
+      x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100"
+      x-transition:leave-end="transform opacity-0 scale-95"
+      class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+      <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+
+        {% if request.user.user_type == 'DOCTOR' %}
+
+        <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          href="{% url 'report' %}">Create Report</a>
+        <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          href="{% url 'addBlog' %}">Post On BLog</a>
+        <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          href="{% url 'ownBlog' %}">My Posts</a>
+        {% endif %}
+
+        {% if request.user.user_type == 'USER' %}
+        <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          href="{% url 'report-user' %}">My Report</a>
+        <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          href="{% url 'purchase_history' %}">Purchase History</a>
+        {% endif %}
+
+        <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          href="{% url 'profile' %}">Profile</a>
+        <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          href="{% url 'logout' %}">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  {% url 'cart' as cart %}
+  {% url 'checkout' as checkout %}
+  {% url 'product' as pro %}
+  {% if request.path == cart or request.path == pro or request.path == checkout %}
+  <a href="{% url 'cart' %}" class="ml-2 flex">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <path
+        d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+    </svg><span
+      class="inline-flex items-center justify-center px-2 py-1 text-sm font-bold leading-none text-indigo-100 bg-indigo-700 rounded-full left-0">{{order.get_cart_items}}</span>
+  </a>
+  {% endif %}
+
+  {% else %}
+
+  <a href="{% url 'login' %}"
+    class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Login
+    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+      <path d="M5 12h14M12 5l7 7-7 7"></path>
+    </svg>
+  </a>
+  {% endif %}
+
+  </div>
+  </div> -->
+
+
+
+
+  {% block content %}
+
+  {% endblock content %}
+
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-newsletter" id="newsletter">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h4>Join Our Newsletter</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <form action="{% url 'newsletter' %}" method="post">
+              {% csrf_token %}
+              <input type="email" name="email" required><input type="submit" value="Subscribe">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Biofloc</h3>
+            <p>
+              A108 Adam Street <br>
+              New York, NY 535022<br>
+              United States <br><br>
+              <strong>Phone:</strong> +1 5589 55488 55<br>
+              <strong>Email:</strong> info@example.com<br>
+            </p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'home' %}">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'about' %}">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'product' %}">Products</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'terms' %}">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'policy' %}">Privacy policy</a></li>
+            </ul>
+          </div>
+
+
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Social Networks</h4>
+            <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Biofloc</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="{% static 'cart.js' %}" type="text/javascript"></script>
+  {% block script %}
+
+  {% endblock script %}
+</body>
+
+</html>

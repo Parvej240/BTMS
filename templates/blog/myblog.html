@@ -1,0 +1,70 @@
+{% extends "layout/layout.html" %}
+
+{% block title %}
+Blog
+{% endblock title %}
+
+{% block content %}
+<!-- This example requires Tailwind CSS v2.0+ -->
+<section class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="">
+                            Title
+                        </th>
+
+                        <th scope="col" class="">
+                            Status
+                        </th>
+                        <th scope="col" class="">
+                            Action
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody class="bg-white  divide-gray-200">
+                    {% for blog in blogs %}
+
+                    <tr class="border">
+                        <td>
+
+                            {{blog.title|truncatechars:54}}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if blog.status %}
+                            <span class="">
+                                Active
+                            </span>
+                            {% else %}
+
+                            <span class="">
+                                Pending
+                            </span>
+                            {% endif %}
+
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <a href="{% url 'blog-update' blog.id %}"
+                                class="text-indigo-600 hover:text-indigo-900 rounded-full leading-5 px-2 bg-indigo-200">Edit</a>
+                            | <a href="{% url 'blog-delete' blog.id %}"
+                                class="text-red-600 hover:text-red-900 bg-red-200 rounded-full leading-5 px-2">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <!-- More people... -->
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    </div>
+    {% endblock content %}

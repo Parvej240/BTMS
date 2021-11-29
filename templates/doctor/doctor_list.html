@@ -1,0 +1,68 @@
+{% extends "layout/layout.html" %}
+
+{% block title %}
+Doctors
+{% endblock title %}
+
+{% block content %}
+
+
+
+
+
+
+<section id="team" class="team section-bg">
+  <div class="container aos-init aos-animate" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Exparts</h2>
+      <h3>Our Hardworking <span>Expart</span></h3>
+      <p>There are specialist individuals who regularly work with bioflocks and provide research advice on various diseases.</p>
+    </div>
+
+    <div class="row">
+
+
+      {% for doctor in doctors %}
+      <div class="col-lg-3 col-md-6 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up"
+        data-aos-delay="300">
+        <div class="member">
+          <div class="member-img">
+            <img src="{{ doctor.profile.profile_pic.url }}" class="img-fluid" alt="">
+            <div class="social">
+              <a href=""><i class="bi bi-twitter"></i></a>
+              <a href=""><i class="bi bi-facebook"></i></a>
+              <a href=""><i class="bi bi-instagram"></i></a>
+              <a href=""><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="member-info">
+            {% if doctor.first_name %}
+            <h4>{{ doctor.first_name }} {{ doctor.last_name }}</h4>
+
+            {% else %}
+            <h4>{{ doctor.username }}</h4>
+            {% endif %}
+            {% if doctor.profile.about != '' %}
+            {{ doctor.profile.about }}
+            {% else %}
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, nemo praesentium quibusdam rerum.
+            {% endif %}
+            <br>
+            <a href="{% url 'booking' doctor.id %}" class="btn btn-primary mt-2">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+{% endblock content %}
